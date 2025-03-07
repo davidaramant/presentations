@@ -1,0 +1,10 @@
+services:
+  leo:
+    image: leo:v1
+    build:
+      dockerfile: ./Dockerfile
+      target: leo
+      args:
+        - PRESENTATION=$PRESENTATION
+    volumes:
+      - /presentations:/presentations
