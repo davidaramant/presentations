@@ -23,166 +23,124 @@ David Aramant | March 11, 2025
 
 [comment]: # (!!!)
 
-This is a sample presentation to showcase [markdown-slides](https://gitlab.com/da_doomer/markdown-slides). The source markdown file is [presentation.md](https://gitlab.com/da_doomer/markdown-slides/-/blob/master/example/presentation.md).
+😎
 
-[comment]: # (!!!)
-
-Use markdown to harness the power of Reveal.js.
-
-[comment]: # (!!!)
-
-## Lists and math
-
-- Using markdown to write presentations
-- Easy lists
-- LaTeX math syntax
-
-`$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`
-
-[comment]: # (!!!)
-
-Code syntax highlighting and animations:
-
-```js [1-2|3|4]
-let a = 1;
-let b = 2;
-let c = x => 1 + 2 + x;
-c(3);
+```csharp
+public async Task DoStuffAsync()
+{
+    await Dog.WoofAsync();
+    await Cat.FeedAsync();
+}
 ```
 
-Notice the background color change.
-
-[comment]: # (section attributes for the just-ending slide can be specified:)
-[comment]: # (!!! data-background-color="aquamarine")
-
-Use background videos, background pictures and **text formatting**,
-everything *without breaking* your markdown files.
-
-[comment]: # (Other background options: https://revealjs.com/backgrounds/)
-[comment]: # (!!! data-background-video="media/video.mp4", data-background-video-loop data-background-video-muted data-background-opacity="0.2")
-
-Even speaker notes, accessed through the `S` key on your keyboard.
-
-(You may have to allow pop-up windows and try again.)
-
-Note:
-This will only appear in the speaker view! 🤯
-
 [comment]: # (!!!)
 
-## Pictures
+🥵
 
-![picture of spaghetti](media/image0.gif) <!-- .element: style="height:50vh; max-width:80vw; image-rendering: crisp-edges;" -->
-
-Showcase media including images, videos and animations.
-
-[comment]: # (!!!)
-
-## Animations
-
-- This is an example list
-- Just to showcase Reveal.js' animations
-
-[comment]: # (!!! data-auto-animate)
-
-## Animations
-
-- This is an example list
-- Just to showcase Reveal.js' animations
-- This item will be automatically faded-in
-
-[comment]: # (!!! data-auto-animate)
-
-```js [1-2|3|4]
-let a = 1;
-let b = 2;
-let c = x => 1 + 2 + x;
-c(3);
+```csharp
+interface INativeApi
+{
+    void DoAsyncThing(int input, Action<int> callback);
+}
 ```
-<!-- .element: data-id="code" -->
 
-[comment]: # (!!! data-auto-animate)
+[comment]: # (!!!)
 
-```js [5]
-let a = 1;
-let b = 2;
-let c = x => 1 + 2 + x;
-c(3);
-c(5);
+```csharp
+public Task<int> DoStuffAsync(int input)
+{
+    var tcs = new TaskCompletionSource<int>();
+
+    _nativeApi.DoAsyncThing(
+        input, 
+        callback: i => tcs.SetResult(i));
+
+    return tcs.Task;
+}
 ```
-<!-- .element: data-id="code" -->
-
-Animate code as well <!-- .element: class="fragment" data-fragment-index="1" -->
-
-[comment]: # (!!! data-auto-animate)
-
-Insert Youtube videos.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KPfzRSBzNX4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [comment]: # (!!!)
 
-Insert local videos.
-
-<iframe width="560" height="315" src="media/video.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+What about collections?
 
 [comment]: # (!!!)
 
-Download [markdown-slides](https://gitlab.com/da_doomer/markdown-slides)!
+JEDI example with Hangfire
+
+Diagram: IEnumerable<T> stuff input
+Output from native: just a method call
+Output from class: ?
 
 [comment]: # (!!!)
 
-A couple more examples follow.
+Is this the correct return type?
+
+```csharp
+Task<IEnumerable<T>>
+```
 
 [comment]: # (!!!)
 
-![logo](media/wide.png)
+For batches, return a collection
 
-***use markdown to write slides***
-
-Author Name
-
-[comment]: # (!!!)
-
-[comment]: # (!!! data-background-image="media/inkscape.png" data-background-size="contain")
-
-Press down on your keyboard or swipe down.
-
-[comment]: # (|||)
-
-**Vertical slides!**
-
-(thanks [@porvik!](https://gitlab.com/da_doomer/markdown-slides/-/issues/8))
-
-[comment]: # (|||)
-
-As many vertical slides as you like.
+```csharp
+Task<IReadOnlyCollection<T>>
+```
 
 [comment]: # (!!!)
 
-Add tables:
+What about this?
 
-| Insert | Tables |
-| ------ | ------ |
-| A row  | Another|
-| text   | more   |
-
-[comment]: # (!!!)
-
-## Vertical separator
-
-----------
-
-Some other text.
+```csharp
+IEnumerable<Task<T>>
+```
 
 [comment]: # (!!!)
 
-You can also use in-line HTML.
+.NET is way ahead of you
 
-<div style="font-size: 1em;">
-small
-</div>
+```csharp
+IAsyncEnumerable<T>
+```
 
-<div style="font-size: 5em;">
-large
-</div>
+[comment]: # (!!!)
+
+```csharp
+IAsyncEnumerable<T> stuff = ...
+
+await foreach(var a in stuff)
+{
+    ...
+}
+```
+
+[comment]: # (!!!)
+
+Also check out `System.Linq.Async`
+
+```csharp
+SingleAsync()
+FirstAsync()
+ToListAsync()
+```
+
+[comment]: # (!!!)
+
+Now how do we turn "function call" into `IAsyncEnumerable<T>`?
+
+Diagram: updated with correct return type
+
+[comment]: # (!!!)
+
+```csharp
+System.Threading.Channels
+```
+
+[comment]: # (!!!)
+
+Example with channel
+
+[comment]: # (!!!)
+
+Updated diagram
+
