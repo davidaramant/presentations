@@ -1,5 +1,4 @@
-FROM python:3.13 AS mdslides
-ENV PRESENTATION not-set
+FROM python:3.13 AS mkslides
 WORKDIR /presentations
-RUN python -m pip install git+https://gitlab.com/da_doomer/markdown-slides.git
-ENTRYPOINT mdslides ${PRESENTATION}
+RUN pip install mkslides
+ENTRYPOINT mkslides build docs 
