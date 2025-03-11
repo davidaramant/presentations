@@ -1,18 +1,12 @@
 index:
   title: David Aramant - Presentations
-  favicon: https://hogenttin.github.io/cdn/favicon/favicon.ico
-  theme: https://hogenttin.github.io/cdn/styles/reveal-js/index.css
 slides:
-  favicon: https://hogenttin.github.io/cdn/favicon/favicon.ico
-  theme: https://hogenttin.github.io/cdn/styles/reveal-js/slides.css
-  highlight_theme: vs
-  separator: ^\s*---\s*$
-  separator_vertical: ^\s*-v-\s*$
-  separator_notes: "^Notes?:"
+  theme: moon
+  highlight_theme: atom-one-dark
 revealjs:
   height: 1080
   width: 1920
-  transition: fade
+  transition: none
 plugins:
   - name: RevealMermaid
     extra_javascript:

@@ -27,7 +27,7 @@ graph TD
 
 ---
 
-😎
+## 😎
 
 ```csharp
 public async Task DoStuffAsync()
@@ -39,7 +39,7 @@ public async Task DoStuffAsync()
 
 ---
 
-🥵
+## 🥵
 
 ```csharp
 interface INativeApi
