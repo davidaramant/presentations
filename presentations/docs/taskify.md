@@ -7,26 +7,6 @@ title: "Task-ify C# Code"
 
 ---
 
-```mermaid
-%%{
-  init: {
-    "flowchart": {
-    },
-  }
-}%%
-
-graph TD
-    A[Enter Chart Definition] --> B(Preview)
-    B --> C{decide}
-    C --> D[Keep]
-    C --> E[Edit Definition]
-    E --> B
-    D --> F[Save Image and Code]
-    F --> B
-```
-
----
-
 ## 😎
 
 ```csharp
@@ -65,47 +45,79 @@ public Task<int> DoStuffAsync(int input)
 
 ---
 
-What about collections?
+# What about collections?
 
 ---
 
-JEDI example with Hangfire
+## JEDI Interaction with Design Workers
 
-Diagram: IEnumerable<T> stuff input
-Output from native: just a method call
-Output from class: ?
+```mermaid
+%%{
+  init: {
+    "flowchart": {},
+    'theme': 'dark', 
+    'themeVariables': { 'darkMode': true }
+  }
+}%%
 
----
+flowchart LR
+    Client
 
-Is this the correct return type?
+    subgraph cw [Client/WebAPI IO]
+        Marks@{ shape: lean-r, label: "List{Data}" }
+        WebApiResult@{ shape: lean-l, label: "???" }
+    end
 
-```csharp
-Task<IEnumerable<T>>
+    WebApi
+
+    subgraph wh [WebApi/Hangfire IO]
+        Jobs@{ shape: lean-r, label: "DoWork(Job)*" }
+        HangfireResult@{ shape: lean-l, label: "WorkDone(Result)*" }
+    end
+
+    Hangfire[(Hangfire)]
+    Job1@{ shape: lean-r, label: "Job 2" }
+    Job2@{ shape: lean-r, label: "Job 2" }
+    Worker1["Worker 1"]
+    Worker2["Worker N"]
+
+    Result1@{ shape: lean-l, label: "Result 1" }
+    Result2@{ shape: lean-l, label: "Result 2" }
+    
+    Client --> Marks --> WebApi
+    WebApi --> Jobs --> Hangfire
+    Hangfire --> Job1 --> Worker1
+    Hangfire --> Job2 --> Worker2
+
+    Worker1 --> Result1 --> Hangfire
+    Worker2 --> Result2 --> Hangfire
+
+    Hangfire --> HangfireResult --> WebApi --> WebApiResult --> Client
+    
 ```
+---
+
+# Is this the correct return type?
+
+# `Task<IEnumerable<T>>`
+---
+
+# For _batches_, return a collection
+
+# `Task<IReadOnlyCollection<T>>`
 
 ---
 
-For batches, return a collection
+# What about this?
 
-```csharp
-Task<IReadOnlyCollection<T>>
-```
+# `IEnumerable<Task<T>>`
 
 ---
 
-What about this?
+# .NET is way ahead of you
 
-```csharp
-IEnumerable<Task<T>>
-```
-
----
-
-.NET is way ahead of you
-
-```csharp
-IAsyncEnumerable<T>
-```
+# ~~`IEnumerable<Task<T>>`~~
+# `IAsyncEnumerable<T>`
 
 ---
 
@@ -120,7 +132,7 @@ await foreach(var a in stuff)
 
 ---
 
-Also check out `System.Linq.Async`
+# Also check out `System.Linq.Async`
 
 ```csharp
 SingleAsync()
@@ -130,15 +142,13 @@ ToListAsync()
 
 ---
 
-Now how do we turn "function call" into `IAsyncEnumerable<T>`?
+# Now how do we turn "function call" into `IAsyncEnumerable<T>`?
 
 Diagram: updated with correct return type
 
 ---
 
-```csharp
-System.Threading.Channels
-```
+# `System.Threading.Channels`
 
 ---
 
