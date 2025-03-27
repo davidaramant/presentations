@@ -45,7 +45,7 @@ public Task<int> DoStuffAsync(int input)
 
 ---
 
-# What about collections?
+## What about collections?
 
 ---
 
@@ -54,77 +54,65 @@ public Task<int> DoStuffAsync(int input)
 ```mermaid
 %%{
   init: {
-    "flowchart": {},
+    'sequence': { 'mirrorActors': false },
     'theme': 'dark', 
     'themeVariables': { 'darkMode': true }
   }
 }%%
 
-flowchart LR
-    Client
+sequenceDiagram
+    participant Client
+    participant WebApi
+    participant Workers
+    note right of Workers: There's a lot of these
 
-    subgraph cw [Client/WebAPI IO]
-        Marks@{ shape: lean-r, label: "List{Data}" }
-        WebApiResult@{ shape: lean-l, label: "???" }
+    Client->>WebApi: IEnumerable<Request>
+    activate WebApi
+
+    loop For all requests
+        WebApi->>Workers: Design(Request)
+        activate Workers
+        Workers-->>WebApi: Done(Result)
+        deactivate Workers
     end
 
-    WebApi
-
-    subgraph wh [WebApi/Hangfire IO]
-        Jobs@{ shape: lean-r, label: "DoWork(Job)*" }
-        HangfireResult@{ shape: lean-l, label: "WorkDone(Result)*" }
-    end
-
-    Hangfire[(Hangfire)]
-    Job1@{ shape: lean-r, label: "Job 2" }
-    Job2@{ shape: lean-r, label: "Job 2" }
-    Worker1["Worker 1"]
-    Worker2["Worker N"]
-
-    Result1@{ shape: lean-l, label: "Result 1" }
-    Result2@{ shape: lean-l, label: "Result 2" }
-    
-    Client --> Marks --> WebApi
-    WebApi --> Jobs --> Hangfire
-    Hangfire --> Job1 --> Worker1
-    Hangfire --> Job2 --> Worker2
-
-    Worker1 --> Result1 --> Hangfire
-    Worker2 --> Result2 --> Hangfire
-
-    Hangfire --> HangfireResult --> WebApi --> WebApiResult --> Client
+    WebApi-->>Client: ???
+    deactivate WebApi
     
 ```
 ---
 
-# Is this the correct return type?
+## Is this the correct return type?
 
-# `Task<IEnumerable<T>>`
----
-
-# For _batches_, return a collection
-
-# `Task<IReadOnlyCollection<T>>`
+## `Task<IEnumerable<T>>`
 
 ---
 
-# What about this?
+## For _batches_, return a collection
 
-# `IEnumerable<Task<T>>`
+## `Task<IReadOnlyCollection<T>>`
+
+---
+
+## What about this?
+
+## `IEnumerable<Task<T>>`
 
 ---
 
-# .NET is way ahead of you
+## .NET is way ahead of you
 
-# ~~`IEnumerable<Task<T>>`~~
-# `IAsyncEnumerable<T>`
+## ~~`IEnumerable<Task<T>>`~~
+## `IAsyncEnumerable<T>`
 
 ---
+
+## Different loop syntax
 
 ```csharp
 IAsyncEnumerable<T> stuff = ...
 
-await foreach(var a in stuff)
+await foreach(var thing in stuff)
 {
     ...
 }
@@ -132,7 +120,7 @@ await foreach(var a in stuff)
 
 ---
 
-# Also check out `System.Linq.Async`
+## Also check out `System.Linq.Async`
 
 ```csharp
 SingleAsync()
@@ -142,18 +130,43 @@ ToListAsync()
 
 ---
 
-# Now how do we turn "function call" into `IAsyncEnumerable<T>`?
+## Now how do we turn "function call" into `IAsyncEnumerable<T>`?
 
-Diagram: updated with correct return type
+```mermaid
+%%{
+  init: {
+    'sequence': { 'mirrorActors': false },
+    'theme': 'dark', 
+    'themeVariables': { 'darkMode': true }
+  }
+}%%
+
+sequenceDiagram
+    participant Client
+    participant WebApi
+    participant Workers
+    note right of Workers: There's a lot of these
+
+    Client->>WebApi: IEnumerable<Request>
+    activate WebApi
+
+    loop For all requests
+        WebApi->>Workers: Design(Request)
+        activate Workers
+        Workers-->>WebApi: Done(Result)
+        deactivate Workers
+    end
+
+    WebApi-->>Client: IAsyncEnumerable<Result>
+    deactivate WebApi
+    
+```
 
 ---
 
-# `System.Threading.Channels`
+## `System.Threading.Channels`
 
 ---
 
 Example with channel
 
----
-
-Updated diagram
