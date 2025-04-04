@@ -30,7 +30,7 @@ interface INativeApi
 
 ---
 
-## TaskCompletionSource
+## `TaskCompletionSource`
 
 ```csharp
 public Task<int> DoStuffAsync(int input)
@@ -47,7 +47,7 @@ public Task<int> DoStuffAsync(int input)
 
 ---
 
-## What about collections?
+# What about collections?
 
 ---
 
@@ -172,12 +172,43 @@ sequenceDiagram
 
 ---
 
-Construct channel
+## Constructing a Channel
+
+```csharp
+private readonly Channel<TResult> _resultChannel = Channel.CreateUnbounded<TResult>(
+    new UnboundedChannelOptions
+    {
+        SingleReader = true,
+        SingleWriter = true,
+        AllowSynchronousContinuations = false,
+    }
+);
+```
+---
+
+## Return `IAsyncEnumerable`
+
+```csharp
+public IAsyncEnumerable<TResult> GetResults(CancellationToken cancellationToken) =>
+    _resultChannel.Reader.ReadAllAsync(cancellationToken);
+```
+---
+
+# Add stuff to the Channel
+
+```csharp
+public void HandleCompletion(TResult result)
+{
+    _resultChannel.Writer.TryWrite(result);
+    _remainingJobs--;
+
+    if (_remainingJobs == 0)
+    {
+        _resultChannel.Writer.Complete();
+    }
+}
+```
 
 ---
 
-Return IAsyncEnumerable
-
---- 
-
-Method Call -> Stuff
+# Questions?

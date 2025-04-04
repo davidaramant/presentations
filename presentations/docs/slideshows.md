@@ -19,7 +19,7 @@ title: "Slideshows with Markdown"
 
 ---
 
-## Is there a simpler way for smaller talks?
+# Is there a simpler way for smaller talks?
 
 # 🤔
 
@@ -34,23 +34,23 @@ title: "Slideshows with Markdown"
 
 ---
 
-## `reveal.js` - Presentation Framework
+# `reveal.js` - Presentation Framework
 
-### Very... web heavy
-
----
-
-## 8,000,000,000 Various Wrappers
+## Very... web heavy
 
 ---
 
-## `mkslides` (Python package)
+# 8,000,000,000 Various Wrappers
 
 ---
 
-## Installing Python = 💀🪦
+# `mkslides` (Python package)
 
-### Docker to the rescue! 🐳 <!-- .element: class="fragment" -->
+---
+
+# Installing Python = 💀🪦
+
+## Docker to the rescue! 🐳 <!-- .element: class="fragment" -->
 
 ---
 
@@ -58,7 +58,7 @@ title: "Slideshows with Markdown"
 
 ---
 
-## Meh 😒
+# Meh 😒
 
 * "Out of the box" experience is godawful
 * Mermaid JS = 🗑️🔥
