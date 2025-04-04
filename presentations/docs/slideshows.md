@@ -7,11 +7,21 @@ title: "Slideshows with Markdown"
 
 ---
 
+# I make a lot of presentations!
+
+---
+
 ## Tools
 
 * PowerPoint
 * Google Slides
 * Apple Keynote
+
+---
+
+## Is there a simpler way for smaller talks?
+
+# 🤔
 
 ---
 
@@ -40,7 +50,7 @@ title: "Slideshows with Markdown"
 
 ## Installing Python = 💀🪦
 
-### Docker to the rescue
+### Docker to the rescue! 🐳 <!-- .element: class="fragment" -->
 
 ---
 
@@ -48,8 +58,9 @@ title: "Slideshows with Markdown"
 
 ---
 
-## It kind of sucks
+## Meh 😒
 
 * "Out of the box" experience is godawful
 * Mermaid JS = 🗑️🔥
-  * (Not that there's a better option...)
+  * PlantUML / MermaidJS > ... > Sticks and Rocks >>>> _Visio_ 🤮
+* Styling leaves something to be desired

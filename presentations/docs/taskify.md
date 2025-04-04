@@ -30,6 +30,8 @@ interface INativeApi
 
 ---
 
+## TaskCompletionSource
+
 ```csharp
 public Task<int> DoStuffAsync(int input)
 {
@@ -123,6 +125,8 @@ await foreach(var thing in stuff)
 ## Also check out `System.Linq.Async`
 
 ```csharp
+Select()
+Where()
 SingleAsync()
 FirstAsync()
 ToListAsync()
@@ -168,5 +172,12 @@ sequenceDiagram
 
 ---
 
-Example with channel
+Construct channel
 
+---
+
+Return IAsyncEnumerable
+
+--- 
+
+Method Call -> Stuff
