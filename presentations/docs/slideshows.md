@@ -60,7 +60,11 @@ title: "Slideshows with Markdown"
 
 # Meh 😒
 
-* "Out of the box" experience is godawful
-* Mermaid JS = 🗑️🔥
+* "Out of the box" experience is godawful <!-- .element: class="fragment" -->
+* Mermaid JS = 🗑️🔥 <!-- .element: class="fragment" -->
   * PlantUML / MermaidJS > ... > Sticks and Rocks >>>> _Visio_ 🤮
-* Styling leaves something to be desired
+* Styling leaves something to be desired <!-- .element: class="fragment" -->
+
+---
+
+# Maybe in the future...

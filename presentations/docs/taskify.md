@@ -211,4 +211,10 @@ public void HandleCompletion(TResult result)
 
 ---
 
+# Task-ify Code
+## Single thing: `TaskCompletionSource`
+## Multiple things: `Channel`
+
+---
+
 # Questions?
